@@ -1,0 +1,6 @@
+[package]
+name = "aoc2017"
+version = "0.1.0"
+authors = ["Carlos Martín Nieto <cmn@dwim.me>"]
+
+[dependencies]
