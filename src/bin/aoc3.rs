@@ -24,8 +24,7 @@ fn main() {
 /// figure where the ring our position lies.
 ///
 /// Let r be the ring number and l = √m be the length of the ring in which the
-/// position lies (which matches the ring's number). The offset from the centre
-/// is however off = l-1 as we consider the distance from the central ring.
+/// position lies.
 ///
 ///     c_tr = n + l - 1
 ///     c_tl = c_tr + l - 1
