@@ -21,10 +21,12 @@ fn main() {
     let line = raw_input.trim();
 
     let lengths = if ascii {
-        line
+        let mut l = line
             .bytes()
             .map(|b| b as usize)
-            .collect::<Vec<usize>>()
+            .collect::<Vec<usize>>();
+        l.append(&mut vec![17, 31, 73, 47, 23]);
+        l
     } else {
         line
             .split(',')
@@ -82,7 +84,7 @@ fn dense_hash(v: &Vec<u8>) -> Vec<u8> {
 fn to_hex(v: &Vec<u8>) -> String {
     let mut hex = String::new();
     for n in v {
-        write!(&mut hex, "{:x}", *n).expect("writing hex");
+        write!(&mut hex, "{:02x}", *n).expect("writing hex");
     }
 
     hex
