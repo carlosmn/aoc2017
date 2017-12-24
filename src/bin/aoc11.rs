@@ -71,6 +71,21 @@ fn main() {
 
     println!("end pos: {:?}", end);
     println!("moves: {}", moves);
+
+    // For part 2 we go a bit brute force and calculate all the intermediate
+    // steps by performing the whole calculation for each prefix of the list.
+    let mut max_distance = 0;
+    for l in 0..directions.len() {
+        let end = directions[0..l].iter().fold(Point::origin(), |acc, &x| move_in_direction(acc, x));
+        let moves = moves_to_reach(end);
+
+        if moves > max_distance {
+            max_distance = moves;
+        }
+    }
+
+    println!("max distance {}", max_distance);
+
 }
 
 /// Calculate how many movements it would take to reach the given point from the
