@@ -24,6 +24,9 @@ fn main() {
 
     let connected = connected_procs(&procs, 0);
     println!("connected: {}", connected.len());
+
+    let groups = count_groups(&procs);
+    println!("groups {:?}", groups);
 }
 
 fn parse_input<R: BufRead>(r: R) -> HashMap<usize, Process> {
@@ -71,6 +74,20 @@ fn connected_procs(m: &HashMap<usize, Process>, pid: usize) -> HashSet<usize> {
     s
 }
 
+fn count_groups(mo: &HashMap<usize, Process>) -> usize {
+    let mut left = mo.keys().cloned().collect::<HashSet<usize>>();
+    let mut groups = 0;
+
+    while let Some(&pid) = left.iter().next() {
+        for id in &connected_procs(&mo, pid) {
+            left.remove(id);
+        }
+        groups += 1;
+    }
+
+    groups
+}
+
 #[cfg(test)]
 mod test {
     use std::io::Cursor;
@@ -93,6 +110,10 @@ mod test {
         let connected = super::connected_procs(&procs, 0);
         assert_eq!(6, connected.len());
         println!("connected {:?}", connected);
+
+        let groups = super::count_groups(&procs);
+        assert_eq!(2, groups);
+        println!("groups {:?}", groups);
 
     }
 }
